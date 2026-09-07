@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!--
+    Favicon: the mark on its own tile, so it stays legible against any browser
+    chrome. Colours are literal here (not var(...)) because a favicon is
+    rendered standalone, outside the app's stylesheet — CSS custom properties
+    do not resolve in that context, so the two tokens this uses are pinned to
+    their current values from Vault Design System/tokens/colors.css:
+    bg-surface (#121218) and indigo-500 (#6e5bff).
+  -->
+  <rect width="64" height="64" rx="14" fill="#121218" />
+  <path
+    d="M20 32V22L27 15H37L44 22V32"
+    stroke="#6e5bff"
+    stroke-width="6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+  <rect x="15" y="30" width="34" height="22" rx="6" fill="#6e5bff" />
+</svg>

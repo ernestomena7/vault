@@ -1,0 +1,43 @@
+<!-- @dsCard group="Components" viewport="700x780" name="Forms — inputs" subtitle="Every input field type" -->
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<div id="root" style="background:var(--bg-app);padding:24px;box-sizing:border-box"></div>
+<script type="text/babel">
+const { Button, IconButton, Input, Textarea, Select, Checkbox, Radio, Switch, FileDropzone } = window.VaultDesignSystem_72e5ce;
+function Demo(){
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:24,fontFamily:'var(--font-sans)',maxWidth:520}}>
+      <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+        <Button variant="primary" icon="upload-cloud">Upload video</Button>
+        <Button variant="secondary">Cancel</Button>
+        <Button variant="ghost" icon="settings">Settings</Button>
+        <Button variant="danger" icon="x">Reject</Button>
+        <Button variant="primary" loading>Uploading</Button>
+        <Button variant="primary" disabled>Disabled</Button>
+        <IconButton icon="more-horizontal" aria-label="More" />
+        <IconButton icon="download" variant="secondary" aria-label="Download" />
+      </div>
+      <Input label="Folder path" icon="folder" placeholder="/marketing/q3-launch" />
+      <Input label="Filename" error="This name is already taken" defaultValue="onboarding_v3.mp4" />
+      <Select label="Naming convention" options={[{value:'a',label:'{project}_{date}_v{n}'},{value:'b',label:'{date}_{project}'}]} />
+      <Textarea label="Reason for rejection" rows={3} placeholder="Explain what needs to change…" />
+      <div style={{display:'flex',gap:24,flexWrap:'wrap'}}>
+        <Checkbox label="Select all" checked />
+        <Checkbox label="Indeterminate" indeterminate />
+        <Checkbox label="Disabled" disabled />
+      </div>
+      <div style={{display:'flex',gap:24,flexWrap:'wrap'}}>
+        <Radio name="vis" label="Team only" checked />
+        <Radio name="vis" label="Anyone with the link" />
+      </div>
+      <Switch label="Auto-approve uploads from admins" checked />
+      <FileDropzone state="uploading" fileName="onboarding_2026-09-02_v3.mp4" progress={64} />
+      <FileDropzone state="error" />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script>

@@ -1,0 +1,9 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Motion" subtitle="Fast, quiet ease-out — no bounce" -->
+<link rel="stylesheet" href="../styles.css">
+<style>@keyframes vault-progress{0%{width:8%}100%{width:92%}}@keyframes vault-fade{0%{opacity:0;transform:translateY(4px)}100%{opacity:1;transform:translateY(0)}}</style>
+<div style="height:160px;background:var(--bg-app);font-family:var(--font-sans);padding:18px 20px;box-sizing:border-box;color:var(--text-secondary);font-size:12px">
+<div>Determinate progress — linear, 1.6s loop</div>
+<div style="height:6px;background:var(--bg-surface-raised);border-radius:var(--radius-full);margin-top:8px;overflow:hidden"><div style="height:100%;background:var(--accent);border-radius:var(--radius-full);animation:vault-progress 1.6s var(--ease-standard) infinite alternate"></div></div>
+<div style="margin-top:20px">Menu/toast enter — 200ms fade + 4px rise, repeats</div>
+<div style="height:36px;width:160px;background:var(--bg-surface-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-md);margin-top:8px;animation:vault-fade 1.4s var(--ease-standard) infinite"></div>
+</div>

@@ -1,0 +1,34 @@
+# Local development database.
+#
+# Production runs on the MySQL that ships with the Hostinger Business plan; this
+# only exists so a developer (and the integration suite) has a MySQL 8 to work
+# against. Nothing here is deployed.
+#
+#   docker compose up -d
+#   npm run db:migrate && npm run db:seed
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: vault-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: vaultroot
+      MYSQL_DATABASE: vault
+      MYSQL_USER: vault
+      MYSQL_PASSWORD: vault
+    ports:
+      - '3307:3306'
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-uroot', '-pvaultroot']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - vault-mysql-data:/var/lib/mysql
+      - ./docker/mysql-init:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  vault-mysql-data:

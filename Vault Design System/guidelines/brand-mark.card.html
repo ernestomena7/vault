@@ -1,0 +1,29 @@
+<!-- @dsCard group="Brand" viewport="700x180" name="Wordmark" subtitle="Vault-door mark, flat indigo, no gradient" -->
+<link rel="stylesheet" href="../styles.css">
+<div style="height:180px;background:var(--bg-app);display:flex;align-items:center;justify-content:center;gap:32px">
+  <div style="display:flex;align-items:center;gap:10px">
+    <svg width="34" height="34" viewBox="0 0 64 64" fill="none" style="color:var(--accent)">
+      <path d="M20 32V22L27 15H37L44 22V32" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="15" y="30" width="34" height="22" rx="6" fill="currentColor"/>
+    </svg>
+    <div style="font-family:var(--font-sans);font-weight:var(--fw-bold);font-size:40px;color:var(--text-primary)">Vault</div>
+  </div>
+  <div style="width:64px;height:64px;border-radius:14px;background:var(--bg-surface);display:flex;align-items:center;justify-content:center">
+    <svg width="32" height="32" viewBox="0 0 64 64" fill="none" style="color:var(--accent)">
+      <path d="M20 32V22L27 15H37L44 22V32" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="15" y="30" width="34" height="22" rx="6" fill="currentColor"/>
+    </svg>
+  </div>
+</div>
+<!--
+  Canonical source: src/components/vault-mark.tsx (inline, currentColor — sits
+  next to the wordmark). The favicon/app-icon tile is src/app/icon.svg, with
+  the same two colours pinned literally since a favicon renders outside the
+  app stylesheet and cannot resolve var(...).
+
+  A vault-door bolt shackle, chamfered rather than a circular arc — reads as a
+  technical schematic instead of a generic padlock glyph. One flat colour
+  (--accent), no gradient: the mark follows the same "one accent carries every
+  primary element" rule as the rest of the UI. No keyhole detail — at nav and
+  favicon sizes it would blur into a dot rather than read as a shape.
+-->

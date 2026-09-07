@@ -1,0 +1,23 @@
+:root{
+--radius-sm:4px;
+--radius-md:8px;
+--radius-lg:12px;
+--radius-xl:16px;
+--radius-full:999px;
+
+--shadow-sm:0 1px 2px rgba(0,0,0,0.4);
+--shadow-md:0 4px 12px rgba(0,0,0,0.45);
+--shadow-lg:0 12px 32px rgba(0,0,0,0.55);
+--shadow-focus:0 0 0 3px var(--accent-border);
+--glow-accent:0 0 24px rgba(110,91,255,0.25);
+
+--blur-panel:20px;
+
+--ease-standard:cubic-bezier(.4,0,.2,1); /* @kind other */
+--duration-fast:120ms; /* @kind other */
+--duration-base:200ms; /* @kind other */
+--duration-slow:320ms; /* @kind other */
+}
+@keyframes vault-spin{to{transform:rotate(1turn)}}
+@keyframes vault-fade-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@keyframes vault-progress-sweep{0%{background-position:-40% 0}100%{background-position:140% 0}}

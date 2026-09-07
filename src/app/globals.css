@@ -1,0 +1,91 @@
+/*
+ * Global styles.
+ *
+ * Every value below comes from the Vault Design System tokens, synced by
+ * `npm run ds:sync` from `Vault Design System/tokens/`. No hardcoded colour,
+ * spacing, radius or shadow is permitted here (Constitution VI) — if a value is
+ * missing, it is added to the design system and re-synced.
+ *
+ * Dark theme only. There is no light theme and no theme switcher.
+ */
+@import '../styles/tokens/fonts.css';
+@import '../styles/tokens/colors.css';
+@import '../styles/tokens/typography.css';
+@import '../styles/tokens/spacing.css';
+@import '../styles/tokens/effects.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md);
+  line-height: var(--leading-body-md);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* Filenames, paths, IDs, timestamps and durations read as data, not prose. */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-md);
+}
+
+/* Small letter-spaced labels — the one place uppercase is allowed. */
+.eyebrow {
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  font-weight: var(--fw-semibold);
+}
+
+/* Used by the design system's Button loading state. */
+@keyframes vault-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
+}
