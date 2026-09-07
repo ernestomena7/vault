@@ -33,10 +33,19 @@ const timestamps = {
     .$onUpdate(() => new Date()),
 };
 
-/** Lower-cased, trimmed name used to match taxonomy across Approval Statuses (FR-008). */
-const nameNormalized = varchar('name_normalized', { length: 120 })
-  .notNull()
-  .generatedAlwaysAs(sql`(LOWER(TRIM(name)))`, { mode: 'stored' });
+/**
+ * Lower-cased, trimmed name used to match taxonomy across Approval Statuses (FR-008).
+ *
+ * Deliberately not `.notNull()`: MariaDB's generated-column grammar has no slot for a
+ * NOT NULL clause after STORED (MySQL 8 accepts it, MariaDB's own docs syntax diagram
+ * does not) — Hostinger's managed database is MariaDB, confirmed by a real deploy
+ * failure, not a guess. The value can never actually be null in practice regardless,
+ * since `name` itself is NOT NULL and LOWER(TRIM(x)) of a non-null string is never null.
+ */
+const nameNormalized = varchar('name_normalized', { length: 120 }).generatedAlwaysAs(
+  sql`(LOWER(TRIM(name)))`,
+  { mode: 'stored' },
+);
 
 // ---------------------------------------------------------------------------
 // Users

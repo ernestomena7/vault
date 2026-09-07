@@ -520,7 +520,7 @@
           "name": "name_normalized",
           "type": "varchar(120)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false,
           "generated": {
             "as": "(LOWER(TRIM(name)))",
@@ -858,7 +858,7 @@
           "name": "name_normalized",
           "type": "varchar(120)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false,
           "generated": {
             "as": "(LOWER(TRIM(name)))",
@@ -975,7 +975,7 @@
           "name": "name_normalized",
           "type": "varchar(120)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false,
           "generated": {
             "as": "(LOWER(TRIM(name)))",

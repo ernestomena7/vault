@@ -63,7 +63,10 @@ const existing = await db
 const byMission = new Map<number, Set<string>>();
 for (const stage of existing) {
   const set = byMission.get(stage.missionId) ?? new Set<string>();
-  set.add(stage.nameNormalized);
+  // Typed nullable only because MariaDB's generated-column grammar has no NOT
+  // NULL slot to declare (schema.ts); it is computed from `name`, which is
+  // itself NOT NULL, so it can never actually be null here.
+  set.add(stage.nameNormalized!);
   byMission.set(stage.missionId, set);
 }
 
