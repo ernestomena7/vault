@@ -1,6 +1,5 @@
-import type { NextConfig } from 'next';
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   // Standalone keeps the deployed bundle small enough for Hostinger's managed
   // Node app, and keeps the build provider-agnostic (Constitution III).
   output: 'standalone',
