@@ -79,7 +79,15 @@ async function requestToken(scope?: string): Promise<MintedToken> {
 
   if (!response.ok || !payload.access_token) {
     const detail = payload.error_description ?? payload.error ?? `HTTP ${response.status}`;
-    throw new StorageUnavailableError(`Dropbox refused the token request: ${detail}`);
+    // The token endpoint has its own rate limit, separate from the regular API
+    // — frequent minting (a fresh token per upload, by design) can trip it
+    // under heavy or repeated use. Surface Retry-After so a 429 here is
+    // actionable rather than just "try again at some point."
+    const retryAfterHeader = response.headers.get('Retry-After');
+    const retryAfterSeconds = retryAfterHeader ? Number.parseInt(retryAfterHeader, 10) : undefined;
+    throw new StorageUnavailableError(`Dropbox refused the token request: ${detail}`, {
+      retryAfterSeconds: Number.isFinite(retryAfterSeconds) ? retryAfterSeconds : undefined,
+    });
   }
 
   const lifetimeMs = (payload.expires_in ?? 14_400) * 1000;

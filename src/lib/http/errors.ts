@@ -156,7 +156,12 @@ export function toApiError(error: unknown): ApiError {
     // but the real cause (error.message carries the Dropbox-side detail;
     // error.cause carries the original SDK error) is worth having in the
     // server log, or every storage_unavailable is a black box in production.
-    console.error('Dropbox request failed:', error.message, error.cause ?? '');
+    console.error(
+      'Dropbox request failed:',
+      error.message,
+      error.retryAfterSeconds ? `(retry after ${error.retryAfterSeconds}s)` : '',
+      error.cause ?? '',
+    );
     return new ApiError(
       'storage_unavailable',
       'Dropbox could not be reached. Nothing was changed, so you can try again.',
