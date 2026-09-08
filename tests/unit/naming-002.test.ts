@@ -23,7 +23,7 @@ describe('the fourth name part', () => {
   it('appends the distinguishing text with the same separator', () => {
     expect(
       buildStandardName({ ...BASE, originalName: 'clip.mp4', distinguishingText: 'take 2' }),
-    ).toBe('Onboarding - Welcome - Rough cut - take 2.mp4');
+    ).toBe('Onboarding_Welcome_Rough cut_take 2.mp4');
   });
 
   it('produces feature 001 exact name when there is no text', () => {
@@ -47,14 +47,14 @@ describe('the fourth name part', () => {
     // All four must be identical, or a file uploaded before this feature would
     // stop matching one uploaded after it.
     for (const name of [withNothing, withUndefined, withNull, withEmpty]) {
-      expect(name).toBe('Onboarding - Welcome - Rough cut.mp4');
+      expect(name).toBe('Onboarding_Welcome_Rough cut.mp4');
     }
   });
 
   it('trims the text before using it', () => {
     expect(
       buildStandardName({ ...BASE, originalName: 'clip.mp4', distinguishingText: '  take 2  ' }),
-    ).toBe('Onboarding - Welcome - Rough cut - take 2.mp4');
+    ).toBe('Onboarding_Welcome_Rough cut_take 2.mp4');
   });
 
   it('allows a text containing spaces and hyphens', () => {
@@ -64,7 +64,7 @@ describe('the fourth name part', () => {
         originalName: 'clip.mp4',
         distinguishingText: 'wide angle - v2',
       }),
-    ).toBe('Onboarding - Welcome - Rough cut - wide angle - v2.mp4');
+    ).toBe('Onboarding_Welcome_Rough cut_wide angle - v2.mp4');
   });
 
   it.each(['a/b', 'a:b', 'a?b', 'a*b', 'a|b', 'a"b'])('refuses a text containing %s', (text) => {
@@ -88,9 +88,10 @@ describe('the fourth name part', () => {
 
 describe('the assembled-name limit', () => {
   it('accepts four parts that would not have fitted under the old 120 cap', () => {
-    // Three parts of 35 characters plus separators already reached 111 under
-    // feature 001's cap, so a fourth part could not fit at all.
-    const part = 'a'.repeat(35);
+    // Feature 001 capped the assembled name at 120. Four parts still blow
+    // past that, so the raise to MAX_NAME_LENGTH remains load-bearing --
+    // even now that '_' joins cost two characters less than ' - ' did.
+    const part = 'a'.repeat(38);
     const name = buildStandardName({
       quest: part,
       mission: part,
@@ -120,7 +121,7 @@ describe('the assembled-name limit', () => {
 describe('the full-path limit', () => {
   it('accepts a realistic path', () => {
     const path =
-      '/Mission Quest Academy/App Vault Folder/03 Ready for editing/Onboarding/Welcome/Onboarding - Welcome - Rough cut - take 2.mp4';
+      '/Mission Quest Academy/App Vault Folder/03 Ready for editing/Onboarding/Welcome/Onboarding_Welcome_Rough cut_take 2.mp4';
     expect(path.length).toBeLessThan(MAX_PATH_LENGTH);
     expect(() => assertPathWithinLimit(path)).not.toThrow();
   });

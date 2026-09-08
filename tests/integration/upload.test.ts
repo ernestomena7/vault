@@ -122,7 +122,7 @@ describe('upload authorization', () => {
     const grant = await authorizeOne();
 
     // The client sent none of this. It sent an original file name and four ids.
-    expect(grant.standardName).toBe('Onboarding - Welcome - Rough cut.mp4');
+    expect(grant.standardName).toBe('Onboarding_Welcome_Rough cut.mp4');
     expect(grant.folderPath).toMatch(/\/Onboarding\/Welcome$/);
     expect(grant.uploadId).toHaveLength(26);
   });
@@ -142,7 +142,7 @@ describe('upload authorization', () => {
 
     expect(rows[0]).toMatchObject({
       userId: uploaderId,
-      standardName: 'Onboarding - Welcome - Rough cut.mp4',
+      standardName: 'Onboarding_Welcome_Rough cut.mp4',
       state: 'authorized',
       declaredSizeBytes: 2048,
     });
@@ -202,7 +202,7 @@ describe('upload confirmation', () => {
       clientOutcome: 'succeeded',
     });
 
-    expect(file.standardName).toBe('Onboarding - Welcome - Rough cut.mp4');
+    expect(file.standardName).toBe('Onboarding_Welcome_Rough cut.mp4');
     expect(file.sizeBytes).toBe(2048);
     expect(file.integrityState).toBe('valid');
     expect(file.extension).toBe('mp4');

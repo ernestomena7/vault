@@ -9,6 +9,9 @@ import {
   type BatchOutcome,
 } from '@/lib/uploads/client-uploader';
 import { MAX_BATCH_FILES } from '@/lib/validation';
+// The same separator the server uses, so this preview cannot drift from the
+// name that actually gets computed.
+import { PART_SEPARATOR } from '@/lib/naming';
 
 interface Option {
   id: number;
@@ -136,7 +139,8 @@ export function UploadForm({
       if (text) parts.push(text);
 
       const extension = extensionOf(row.file.name);
-      return extension ? `${parts.join(' - ')}.${extension}` : parts.join(' - ');
+      const stem = parts.join(PART_SEPARATOR);
+      return extension ? `${stem}.${extension}` : stem;
     },
     [selectedQuest, selectedMission, stages],
   );

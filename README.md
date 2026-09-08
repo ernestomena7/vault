@@ -7,13 +7,21 @@ relocates it between Dropbox folders.
 Files are named:
 
 ```text
-[Quest] - [Mission] - [Stage].[ext]
-[Quest] - [Mission] - [Stage] - [Distinguishing text].[ext]
+[Quest]_[Mission]_[Stage].[ext]
+[Quest]_[Mission]_[Stage]_[Distinguishing text].[ext]
 ```
 
 The distinguishing text is optional, and exists so several files can share a Quest, Mission and
 Stage — three takes of one scene, say — and still be told apart. A file without one keeps the
 three-part name exactly.
+
+Only the joins between parts use `_`. Spaces inside a part are left exactly as the Admin typed
+them in the taxonomy, so a Quest called "Hike and Seek" produces
+`Hike and Seek_Mission 3_Stage 01.mp4`.
+
+Files uploaded before this convention keep their original ` - ` separated names. Nothing renames
+them, and nothing needs to: no code parses a stored name back into its parts — the file row
+carries the Quest, Mission and Stage IDs — so both forms coexist safely.
 
 Several files can be uploaded at once: the Approval Status, Quest and Mission are chosen once and
 shared, while the Stage and the distinguishing text are set per file.

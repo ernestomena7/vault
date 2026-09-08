@@ -18,7 +18,7 @@ import { InvalidPathError } from '@/lib/storage/port';
  */
 
 describe('buildStandardName', () => {
-  it('joins the three parts with " - " and keeps the extension', () => {
+  it('joins the three parts with "_" and keeps the extension', () => {
     expect(
       buildStandardName({
         quest: 'Onboarding',
@@ -26,7 +26,7 @@ describe('buildStandardName', () => {
         stage: 'Rough cut',
         originalName: 'final_v3.mp4',
       }),
-    ).toBe('Onboarding - Welcome - Rough cut.mp4');
+    ).toBe('Onboarding_Welcome_Rough cut.mp4');
   });
 
   it('lower-cases the extension but never the name parts', () => {
@@ -37,7 +37,7 @@ describe('buildStandardName', () => {
         stage: 'Final',
         originalName: 'CLIP.MOV',
       }),
-    ).toBe('Onboarding - Welcome - Final.mov');
+    ).toBe('Onboarding_Welcome_Final.mov');
   });
 
   it('keeps only the last extension for a multi-dot file name', () => {
@@ -48,11 +48,12 @@ describe('buildStandardName', () => {
         stage: 'S',
         originalName: 'archive.tar.mp4',
       }),
-    ).toBe('Q - M - S.mp4');
+    ).toBe('Q_M_S.mp4');
   });
 
   it('allows spaces and hyphens inside the parts', () => {
-    // The separator itself is " - ", so parts containing hyphens must survive.
+    // The separator is "_", so spaces AND hyphens inside a part must survive
+    // untouched — only the joins between parts change.
     expect(
       buildStandardName({
         quest: 'Product tour',
@@ -60,7 +61,7 @@ describe('buildStandardName', () => {
         stage: 'Rough cut 2',
         originalName: 'a.mp4',
       }),
-    ).toBe('Product tour - Dashboard - beta - Rough cut 2.mp4');
+    ).toBe('Product tour_Dashboard - beta_Rough cut 2.mp4');
   });
 
   it('trims surrounding whitespace from each part', () => {
@@ -71,13 +72,13 @@ describe('buildStandardName', () => {
         stage: ' Final ',
         originalName: 'a.mp4',
       }),
-    ).toBe('Onboarding - Welcome - Final.mp4');
+    ).toBe('Onboarding_Welcome_Final.mp4');
   });
 
   it('produces a name without a dot when the original had no extension', () => {
     expect(
       buildStandardName({ quest: 'Q', mission: 'M', stage: 'S', originalName: 'noext' }),
-    ).toBe('Q - M - S');
+    ).toBe('Q_M_S');
   });
 
   it.each(['bad/name', 'bad\\name', 'bad:name', 'bad?name', 'bad*name', 'bad|name', 'bad"name'])(

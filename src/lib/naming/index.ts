@@ -3,19 +3,34 @@ import { InvalidPathError } from '@/lib/storage/port';
 /**
  * The naming and routing rules — the heart of the product's guarantee.
  *
- * Every file gets `[Quest] - [Mission] - [Stage].[ext]`, or
- * `[Quest] - [Mission] - [Stage] - [Distinguishing text].[ext]` when a text is
+ * Every file gets `[Quest]_[Mission]_[Stage].[ext]`, or
+ * `[Quest]_[Mission]_[Stage]_[Distinguishing text].[ext]` when a text is
  * given, at `/[Status]/[Quest]/[Mission]/`. All of it is computed server-side;
  * the uploader supplies the text as a value but never the assembled name
  * (SC-001, FR-003).
+ *
+ * Files uploaded before this convention keep their original ` - ` separated
+ * names. Nothing renames them: the separator only affects names computed from
+ * now on, and no code parses a stored name back into its parts (the file row
+ * carries the quest/mission/stage IDs), so both forms coexist safely.
  *
  * The distinguishing text is OPTIONAL. A file without one is named exactly as
  * feature 001 named it, which is what keeps every file already in Dropbox valid
  * and every existing habit working (FR-002).
  */
 
-/** Separator between name parts. Exact, including the spaces. */
-const PART_SEPARATOR = ' - ';
+/**
+ * Separator between name parts.
+ *
+ * Exported because the upload form shows a live preview of the name the server
+ * will compute. That preview used to hardcode its own copy of this separator,
+ * which meant the two could drift and the preview could quietly lie about the
+ * resulting file name.
+ *
+ * Spaces INSIDE a part are left alone — a Quest called "Hike and Seek" keeps
+ * its spaces; only the joins between parts use this.
+ */
+export const PART_SEPARATOR = '_';
 
 /**
  * Length limits.
@@ -122,8 +137,8 @@ export interface StandardNameParts {
 }
 
 /**
- * `[Quest] - [Mission] - [Stage].[ext]`, or
- * `[Quest] - [Mission] - [Stage] - [Text].[ext]` when a distinguishing text is
+ * `[Quest]_[Mission]_[Stage].[ext]`, or
+ * `[Quest]_[Mission]_[Stage]_[Text].[ext]` when a distinguishing text is
  * given, preserving the original extension.
  *
  * Throws InvalidPathError if any part cannot form a valid name, or if the

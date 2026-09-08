@@ -130,9 +130,9 @@ describe('one taxonomy, many files (US1)', () => {
     // One folder for the whole batch, because the taxonomy is shared.
     expect(batch.folderPath).toMatch(/Onboarding\/Welcome$/);
     expect(batch.files.map((file) => file.standardName)).toEqual([
-      'Onboarding - Welcome - Rough cut - take 1.mp4',
-      'Onboarding - Welcome - Rough cut - take 2.mp4',
-      'Onboarding - Welcome - Rough cut - take 3.mp4',
+      'Onboarding_Welcome_Rough cut_take 1.mp4',
+      'Onboarding_Welcome_Rough cut_take 2.mp4',
+      'Onboarding_Welcome_Rough cut_take 3.mp4',
     ]);
   });
 
@@ -172,7 +172,7 @@ describe('one taxonomy, many files (US1)', () => {
 
     expect(batch.files).toHaveLength(1);
     // No distinguishing text: the three-part name feature 001 produced.
-    expect(batch.files[0]!.standardName).toBe('Onboarding - Welcome - Rough cut.mp4');
+    expect(batch.files[0]!.standardName).toBe('Onboarding_Welcome_Rough cut.mp4');
   });
 });
 
@@ -201,7 +201,7 @@ describe('the distinguishing text (US2)', () => {
     });
 
     expect(file.distinguishingText).toBe('take 7');
-    expect(file.standardName).toBe('Onboarding - Welcome - Rough cut - take 7.mp4');
+    expect(file.standardName).toBe('Onboarding_Welcome_Rough cut_take 7.mp4');
     expect(file.incompleteSet).toBe(false);
   });
 
@@ -211,7 +211,7 @@ describe('the distinguishing text (US2)', () => {
       BATCH([FILE({ clientRef: 'a', distinguishingText: '   spaced   ' })]),
     );
 
-    expect(batch.files[0]!.standardName).toBe('Onboarding - Welcome - Rough cut - spaced.mp4');
+    expect(batch.files[0]!.standardName).toBe('Onboarding_Welcome_Rough cut_spaced.mp4');
   });
 
   it('refuses a text that cannot form a legal name part', async () => {
@@ -264,8 +264,8 @@ describe('conflicts refused before anything transfers (US3)', () => {
     );
 
     expect(batch.files.map((file) => file.standardName)).toEqual([
-      'Onboarding - Welcome - Rough cut - take 1.mp4',
-      'Onboarding - Welcome - Rough cut - take 1.mov',
+      'Onboarding_Welcome_Rough cut_take 1.mp4',
+      'Onboarding_Welcome_Rough cut_take 1.mov',
     ]);
   });
 
