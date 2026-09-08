@@ -6,6 +6,12 @@
 .env.production
 !.env.example
 
+# --- Database exports --------------------------------------------------------
+# Generated dumps of the live database. These carry real user email addresses
+# and password hashes, so they are treated like a credentials file: kept local,
+# transferred deliberately, never committed.
+db-seed/
+
 # --- Node / Next.js ---------------------------------------------------------
 node_modules/
 .next/
