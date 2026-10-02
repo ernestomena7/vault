@@ -29,6 +29,14 @@ export function getPool(): mysql.Pool {
     connectionLimit: 10,
     // Shared hosting: fail fast rather than hanging a request slot.
     connectTimeout: 10_000,
+    // Hosted MySQL drops connections that sit idle (wait_timeout), and the pool
+    // would otherwise hand that dead socket to the first request after a quiet
+    // day. Retire idle connections well before the server does, and keep the
+    // ones in use alive at the TCP level.
+    maxIdle: 0,
+    idleTimeout: 60_000,
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 10_000,
     timezone: 'Z',
     supportBigNumbers: true,
   });
